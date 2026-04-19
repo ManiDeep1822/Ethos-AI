@@ -1,0 +1,9 @@
+/* App.css - Resetting to custom styles */
+#root {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.app {
+  min-height: 100vh;
+}

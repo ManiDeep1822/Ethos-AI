@@ -1,0 +1,345 @@
+.analyzer-page {
+  padding-top: 32px;
+  padding-bottom: 80px;
+}
+
+.analyzer-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 64px; /* Expanded for significant horizontal offset */
+  align-items: start;
+}
+
+/* ─── Editor Card ───────────────────────────────────────── */
+.editor-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.editor-card {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 520px;
+}
+
+/* Top bar — macOS-like window chrome */
+.editor-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--border);
+}
+
+.editor-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+.dot-red    { background: #FF5F57; }
+.dot-yellow { background: #FEBC2E; }
+.dot-green  { background: #28C840; }
+
+.editor-filename {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-family: 'Courier New', monospace;
+  flex: 1;
+}
+
+.editor-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.editor-meta {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+}
+
+.editor-clear-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+.editor-clear-btn:hover {
+  color: var(--error);
+  background: rgba(255, 107, 107, 0.1);
+}
+
+/* Textarea */
+.editor-body {
+  flex: 1;
+  display: flex;
+}
+
+.saas-textarea {
+  flex: 1;
+  width: 100%;
+  min-height: 380px;
+  background: transparent;
+  border: none;
+  resize: none;
+  color: var(--text-primary);
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.7;
+  outline: none;
+  padding: 20px 24px;
+  caret-color: var(--primary);
+}
+
+.saas-textarea::placeholder {
+  color: rgba(160, 160, 160, 0.4);
+  font-family: var(--font-body);
+  font-style: italic;
+}
+
+/* Bottom bar */
+.editor-bottombar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid var(--border);
+}
+
+.editor-status {
+  font-size: 12px;
+}
+
+.status-analyzing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.status-done {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.status-idle {
+  color: var(--text-secondary);
+}
+
+.editor-save-btn {
+  height: 32px;
+  padding: 0 16px;
+  font-size: 13px;
+  border-radius: 8px;
+  gap: 6px;
+}
+
+/* ─── Observations / Feedback ───────────────────────────── */
+.feedback-layer {
+  margin-top: 0;
+  padding: 40px 32px;
+  border-top: 1px solid var(--border);
+}
+
+.feedback-layer h3 {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--spacing-md);
+  font-weight: 700;
+}
+
+.observation-list {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.obs-item {
+  padding: 24px;
+  background: rgba(255, 107, 107, 0.04);
+  border-left: 2px solid var(--error);
+  border-radius: 6px;
+}
+
+.obs-marker {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--error);
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+
+.obs-content {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.obs-action {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* ─── Right Sidebar ─────────────────────────────────────── */
+.vitals-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  position: sticky;
+  top: 88px;
+}
+
+.matrix-hero {
+  text-align: center;
+  padding: var(--spacing-lg) 0;
+}
+
+.matrix-value {
+  font-family: var(--font-heading);
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.matrix-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+.tone-badge {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 14px;
+  background: rgba(0, 201, 167, 0.1);
+  border: 1px solid rgba(0, 201, 167, 0.3);
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: capitalize;
+}
+
+.matrix-rows {
+  display: grid;
+  gap: 12px;
+}
+
+.matrix-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.row-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.row-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.row-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Refined Logic & Coach ─────────────────────────────── */
+.refined-header, .brief-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--spacing-md);
+}
+
+.refined-card p, .coach-brief p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+.btn-sm {
+  height: 30px;
+  padding: 0 12px;
+  font-size: 12px;
+  border-radius: 6px;
+  gap: 5px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .analyzer-grid {
+    grid-template-columns: 1fr;
+  }
+  .vitals-section {
+    position: static;
+  }
+}
