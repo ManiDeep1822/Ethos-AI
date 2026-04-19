@@ -385,7 +385,8 @@
 /* ─── Features Section ───────────────────────────────── */
 .features-section {
   padding: 64px 0; 
-  margin: 96px auto; /* Forced vertical gap */
+  margin-top: 160px; /* Massive gap forced */
+  margin-bottom: 160px;
   position: relative;
   z-index: 1;
 }
@@ -496,7 +497,7 @@
 /* ─── CTA Section ────────────────────────────────────── */
 .cta-section {
   padding: 64px 0 160px;
-  margin: 96px auto; /* Forced vertical gap */
+  margin-top: 180px; /* Massive gap forced */
   position: relative;
   z-index: 1;
 }
