@@ -349,7 +349,8 @@
 
 /* ─── Stats Banner ───────────────────────────────────── */
 .stats-banner {
-  padding: 80px 0; /* Increased padding */
+  padding: 80px 0;
+  margin: 64px 0; /* Forced vertical gap */
   background: rgba(255, 255, 255, 0.015);
   border-top: 1px solid rgba(255, 255, 255, 0.04);
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
@@ -383,7 +384,8 @@
 
 /* ─── Features Section ───────────────────────────────── */
 .features-section {
-  padding: 128px 0; /* Base-8 standard */
+  padding: 64px 0; 
+  margin: 96px auto; /* Forced vertical gap */
   position: relative;
   z-index: 1;
 }
@@ -493,7 +495,8 @@
 
 /* ─── CTA Section ────────────────────────────────────── */
 .cta-section {
-  padding: 100px 0 160px;
+  padding: 64px 0 160px;
+  margin: 96px auto; /* Forced vertical gap */
   position: relative;
   z-index: 1;
 }
