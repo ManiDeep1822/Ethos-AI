@@ -508,6 +508,7 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 48px;
   padding: 100px 64px;
+  margin-top: 160px !important; /* Forces the box away from the features */
   text-align: center;
   overflow: hidden;
 }
