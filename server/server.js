@@ -44,4 +44,8 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  
+  // Start keep-alive script to prevent Render from sleeping
+  const startKeepAlive = require('./services/keepAlive');
+  startKeepAlive();
 });
