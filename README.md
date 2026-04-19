@@ -2,6 +2,8 @@
 
 ![Ethos-AI Banner](client/src/assets/hero.png)
 
+🚀 **Live Production Site:** [https://ethos-ai.vercel.app](https://ethos-ai.vercel.app)
+
 **Ethos-AI** is a premium, next-generation AI platform designed to analyze, critique, and elevate professional communication. Acting as a master Human Resources (HR) Director, the intelligence backend identifies emotional nuance, evaluates tone, and coaches users through high-stakes workplace simulations using the advanced Google Gemini AI engine.
 
 ## 🚀 Key Features and Use Cases
