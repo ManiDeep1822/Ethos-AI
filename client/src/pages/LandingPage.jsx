@@ -97,15 +97,6 @@ const LandingPage = () => {
                 </div>
               </div>
               
-              {/* Floating Micro-Cards (Moved outside main-card to avoid overflow:hidden clipping) */}
-              <div className="micro-card micro-card-1 animate-float-delayed">
-                <CheckCircle2 size={14} color="var(--primary)" />
-                <span>Tone Adjusted</span>
-              </div>
-              <div className="micro-card micro-card-2 animate-float">
-                <Users size={14} color="#6366f1" />
-                <span>Audience Ready</span>
-              </div>
             </div>
           </div>
         </div>
