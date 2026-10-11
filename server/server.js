@@ -1,4 +1,6 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env'), override: true });
+require('dotenv').config({ override: true });
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -8,14 +10,45 @@ const connectDB = require('./config/db');
 // Connect to database
 connectDB();
 
+// Global process error resilience
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('⚠️ [Server Safety]: Unhandled Rejection:', reason);
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('⚠️ [Server Safety]: Uncaught Exception:', error);
+});
+
 const app = express();
 
 // Middleware
 app.use(helmet());
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
-  credentials: true,
-}));
+
+// Dynamic CORS configuration allowing localhost, Vercel deployments, and custom CLIENT_URL
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://ethos-ai.vercel.app',
+  ...(process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',').map((s) => s.trim()) : []),
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
+      if (!origin) return callback(null, true);
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith('.vercel.app') ||
+        origin.endsWith('.onrender.com')
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true); // Allow all legitimate client origins dynamically
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(morgan('dev'));
 

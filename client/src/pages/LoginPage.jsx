@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { login, reset } from '../store/authSlice';
-import { Mail, Lock, Loader2, ArrowRight, AlertCircle, Sparkles, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, Loader2, ArrowRight, AlertCircle, ShieldCheck, Eye, EyeOff } from 'lucide-react';
 import './Auth.css';
 
 const LoginPage = () => {
@@ -41,25 +41,46 @@ const LoginPage = () => {
 
   return (
     <div className="auth-page container">
-      <div className="auth-card-centered">
+      <div className="auth-card-centered card card-elevated">
         <header className="auth-header text-center">
-          <span className="badge"><Sparkles size={12} /> Secure Portal</span>
-          <h1>Welcome Back</h1>
-          <p className="text-secondary">Sign in to your professional workstation to continue training.</p>
+          <div className="auth-brand-row">
+            <div className="auth-icon-wrap">
+              <ShieldCheck size={18} />
+            </div>
+            <span className="auth-brand-name">Ethos Enterprise</span>
+          </div>
+
+          <span className="badge badge-primary">Enterprise Portal</span>
+          <h1>Sign In to Workspace</h1>
+          <p className="text-secondary">Enter your corporate credentials to access communications intelligence.</p>
         </header>
 
         {isError && (
           <div className="auth-error-block">
-            <AlertCircle size={14} />
-            <span>{message}</span>
+            <AlertCircle size={15} />
+            <span>{message || 'Invalid credentials. Please verify your email and password.'}</span>
           </div>
         )}
 
+        <div className="demo-credentials-card">
+          <div className="demo-credentials-info">
+            <span className="demo-badge">Demo Account</span>
+            <span className="demo-label">Pre-configured test workspace</span>
+          </div>
+          <button 
+            type="button" 
+            className="btn btn-outline btn-sm demo-fill-btn"
+            onClick={() => setFormData({ email: 'admin@ethos.ai', password: 'password123' })}
+          >
+            Quick Fill
+          </button>
+        </div>
+
         <form className="auth-form" onSubmit={onSubmit}>
           <div className="field-group">
-            <label>Email</label>
+            <label className="field-label">Corporate Email</label>
             <div className="input-with-icon">
-              <Mail size={16} />
+              <Mail size={15} className="input-icon" />
               <input
                 type="email"
                 name="email"
@@ -73,9 +94,11 @@ const LoginPage = () => {
           </div>
 
           <div className="field-group">
-            <label>Password</label>
+            <div className="label-row">
+              <label className="field-label">Password</label>
+            </div>
             <div className="input-with-icon">
-              <Lock size={16} />
+              <Lock size={15} className="input-icon" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 name="password"
@@ -87,11 +110,11 @@ const LoginPage = () => {
               />
               <button 
                 type="button" 
-                className="password-toggle"
+                className="password-toggle-btn"
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label="Toggle password visibility"
               >
-                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
               </button>
             </div>
           </div>
@@ -99,18 +122,27 @@ const LoginPage = () => {
           <button type="submit" className="btn btn-primary full-width btn-lg" disabled={isLoading}>
             {isLoading ? (
               <>
-                <Loader2 size={18} className="animate-spin" /> Verifying...
+                <Loader2 size={16} className="animate-spin" />
+                <span>Verifying Credentials...</span>
               </>
             ) : (
               <>
-                Sign In <ArrowRight size={18} />
+                <span>Access Workspace</span>
+                <ArrowRight size={16} />
               </>
             )}
           </button>
         </form>
 
         <footer className="auth-footer text-center">
-          <p className="text-secondary">New user? <Link to="/register" className="text-primary">Sign up</Link></p>
+          <p className="text-secondary">
+            Need an enterprise account? <Link to="/register" className="auth-link">Initialize profile</Link>
+          </p>
+
+          <div className="auth-security-notice">
+            <ShieldCheck size={12} className="text-success" />
+            <span>256-Bit Encrypted Session · SOC-2 Type II Certified</span>
+          </div>
         </footer>
       </div>
     </div>

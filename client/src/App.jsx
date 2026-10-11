@@ -7,6 +7,8 @@ import AnalyzerPage from './pages/AnalyzerPage';
 import ChatPage from './pages/ChatPage';
 import DashboardPage from './pages/DashboardPage';
 import Navbar from './components/common/Navbar';
+import ScrollToTop from './components/common/ScrollToTop';
+import './App.css';
 
 function App() {
   const { user } = useSelector((state) => state.auth);
@@ -20,6 +22,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="app">
         <Navbar />
         <Routes>

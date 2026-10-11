@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { register, reset } from '../store/authSlice';
-import { Mail, Lock, User, ArrowRight, AlertCircle, Sparkles, Loader2, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, User, ArrowRight, AlertCircle, ShieldCheck, Loader2, Eye, EyeOff } from 'lucide-react';
 import './Auth.css';
 
 const RegisterPage = () => {
@@ -16,6 +16,8 @@ const RegisterPage = () => {
   const { name, email, password, confirmPassword } = formData;
   const [showPassword, setShowPassword] = useState(false);
   const [showVerifyPassword, setShowVerifyPassword] = useState(false);
+  const [validationError, setValidationError] = useState('');
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -35,54 +37,66 @@ const RegisterPage = () => {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+    if (validationError) setValidationError('');
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
-    } else {
-      dispatch(register({ name, email, password }));
+      setValidationError('Passwords do not match. Please ensure both passwords match exactly.');
+      return;
     }
+    if (password.length < 6) {
+      setValidationError('Password must be at least 6 characters.');
+      return;
+    }
+    dispatch(register({ name, email, password }));
   };
 
   return (
     <div className="auth-page container">
-      <div className="auth-card-centered">
+      <div className="auth-card-centered card card-elevated">
         <header className="auth-header text-center">
-          <span className="badge"><Sparkles size={12} /> New Identity</span>
+          <div className="auth-brand-row">
+            <div className="auth-icon-wrap">
+              <ShieldCheck size={18} />
+            </div>
+            <span className="auth-brand-name">Ethos Enterprise</span>
+          </div>
+
+          <span className="badge badge-primary">Workspace Provisioning</span>
           <h1>Initialize Profile</h1>
-          <p className="text-secondary">Create your professional credentials for AI-driven communications training.</p>
+          <p className="text-secondary">Create your corporate profile to initiate communication intelligence.</p>
         </header>
 
-        {isError && (
+        {(isError || validationError) && (
           <div className="auth-error-block">
-            <AlertCircle size={14} />
-            <span>{message}</span>
+            <AlertCircle size={15} />
+            <span>{validationError || message}</span>
           </div>
         )}
 
         <form className="auth-form" onSubmit={onSubmit}>
           <div className="field-group">
-            <label>Full Name</label>
+            <label className="field-label">Full Name</label>
             <div className="input-with-icon">
-              <User size={16} />
+              <User size={15} className="input-icon" />
               <input
                 type="text"
                 name="name"
                 className="input"
                 value={name}
                 onChange={onChange}
-                placeholder="Eleanor Shellstrop"
+                placeholder="Sarah Jenkins"
                 required
               />
             </div>
           </div>
 
           <div className="field-group">
-            <label>Email</label>
+            <label className="field-label">Corporate Email</label>
             <div className="input-with-icon">
-              <Mail size={16} />
+              <Mail size={15} className="input-icon" />
               <input
                 type="email"
                 name="email"
@@ -96,9 +110,9 @@ const RegisterPage = () => {
           </div>
 
           <div className="field-group">
-            <label>Password</label>
+            <label className="field-label">Password</label>
             <div className="input-with-icon">
-              <Lock size={16} />
+              <Lock size={15} className="input-icon" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 name="password"
@@ -110,19 +124,19 @@ const RegisterPage = () => {
               />
               <button 
                 type="button" 
-                className="password-toggle"
+                className="password-toggle-btn"
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label="Toggle password visibility"
               >
-                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
               </button>
             </div>
           </div>
 
           <div className="field-group">
-            <label>Verify Password</label>
+            <label className="field-label">Confirm Password</label>
             <div className="input-with-icon">
-              <Lock size={16} />
+              <Lock size={15} className="input-icon" />
               <input
                 type={showVerifyPassword ? 'text' : 'password'}
                 name="confirmPassword"
@@ -134,11 +148,11 @@ const RegisterPage = () => {
               />
               <button 
                 type="button" 
-                className="password-toggle"
+                className="password-toggle-btn"
                 onClick={() => setShowVerifyPassword(!showVerifyPassword)}
                 aria-label="Toggle password visibility"
               >
-                {showVerifyPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                {showVerifyPassword ? <EyeOff size={15} /> : <Eye size={15} />}
               </button>
             </div>
           </div>
@@ -146,18 +160,27 @@ const RegisterPage = () => {
           <button type="submit" className="btn btn-primary full-width btn-lg" disabled={isLoading}>
             {isLoading ? (
               <>
-                <Loader2 size={18} className="animate-spin" /> Provisioning...
+                <Loader2 size={16} className="animate-spin" />
+                <span>Provisioning Account...</span>
               </>
             ) : (
               <>
-                Create Account <ArrowRight size={18} />
+                <span>Complete Account Setup</span>
+                <ArrowRight size={16} />
               </>
             )}
           </button>
         </form>
 
         <footer className="auth-footer text-center">
-          <p className="text-secondary">Existing operator? <Link to="/login" className="text-primary">Sign In</Link></p>
+          <p className="text-secondary">
+            Already provisioned? <Link to="/login" className="auth-link">Sign in</Link>
+          </p>
+
+          <div className="auth-security-notice">
+            <ShieldCheck size={12} className="text-success" />
+            <span>Zero Data Retention Policy · AES-256 Storage</span>
+          </div>
         </footer>
       </div>
     </div>

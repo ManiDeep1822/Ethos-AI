@@ -1,9 +1,15 @@
-/* App.css - Resetting to custom styles */
+/* App.css - Fluid Full-Width Scale */
 #root {
   width: 100%;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .app {
+  width: 100%;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 64px;
 }

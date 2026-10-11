@@ -25,3 +25,11 @@ yarn-error.log*
 # Private Server Configs
 server/.env
 client/.env
+
+# Local Tooling & Caches
+.ua/
+
+# Project Reports & Presentations
+*.pdf
+*.pptx
+*.docx

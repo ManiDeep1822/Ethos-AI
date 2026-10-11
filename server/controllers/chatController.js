@@ -9,17 +9,34 @@ const startChat = async (req, res) => {
   const { scenario } = req.body;
 
   try {
+    const user = await User.findById(req.user.id);
+    const userName = user?.name || 'Executive Leader';
+
+    // Generate in-character opening greeting from counterpart with zero placeholders
+    const { reply, coaching } = await chatReply([], scenario, {
+      name: userName,
+      email: user?.email
+    });
+
     const session = await ChatSession.create({
       userId: req.user.id,
       scenario,
-      messages: [],
+      messages: [
+        {
+          role: 'model',
+          content: reply,
+          coaching
+        }
+      ],
     });
+
     res.status(201).json({
       success: true,
       data: session,
       message: 'Chat session started'
     });
   } catch (error) {
+    console.error('Failed to start chat session:', error);
     res.status(500).json({ 
       success: false, 
       message: 'Failed to start chat session' 
@@ -42,7 +59,7 @@ const sendMessage = async (req, res) => {
     session.messages.push({ role: 'user', content });
 
     const { reply, coaching } = await chatReply(session.messages, session.scenario, {
-      name: user?.name || 'User',
+      name: user?.name || 'Executive Leader',
       email: user?.email
     });
 
